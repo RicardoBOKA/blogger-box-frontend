@@ -17,7 +17,11 @@ export class PostListComponent implements OnInit {
         this.loadPosts();
     }
 
+    // loadPosts(): void {
+    //     this.postService.getPosts().subscribe(posts => this.posts = posts)
+    // }
+
     loadPosts(): void {
-        this.postService.getPosts().subscribe(posts => this.posts = posts)
+        this.postService.getAll().subscribe(posts => this.posts = posts)
     }
 }

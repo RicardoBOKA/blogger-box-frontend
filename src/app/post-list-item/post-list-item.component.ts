@@ -10,4 +10,8 @@ import { Post } from "../data/post";
 export class PostListItemComponent {
     @Input()
     post!: Post;
+
+    // logCategory(): void {
+    //     console.log('Category:', this.post.category);
+    // }
 }
