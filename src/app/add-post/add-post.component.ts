@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Post } from "../data/post";
 import { PostService } from "../services/post.service";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {HttpClient} from "@angular/common/http";
+import {env} from "../../env/env";
 
 @Component({
     selector: 'add-post',
@@ -9,71 +11,88 @@ import { FormBuilder, Validators } from "@angular/forms";
     styleUrls: ['./add-post.component.CSS']
 })
 
-export class AddPost {
-    form = this.fb.group({
-      email: [
-        '',
-        {
-          validators: [Validators.required, Validators.email],
-          updateOn: 'blur',
-        },
-      ],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-        //   hasUpperCase(),
-        //   hasLowerCase(),
-        //   hasNumeric(),
+export class AddPost implements OnInit {
+  private url = `${env.apiUrl}/v1`
+  form: FormGroup;
+  categories: any[] = [];
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+      this.form = this.fb.group({
+        title: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(20)
+          ]
         ],
-      ],
-      title: [
-        '',
-        [
+        categoryId: [
+          '',
+          [
             Validators.required,
-            Validators.minLength(8)
+            Validators.minLength(1)
+          ]
         ],
-      ],
-      content: [
-        '',
-        [
+        content: [
+          '',
+          [
             Validators.required,
-            Validators.minLength(8)
+            Validators.minLength(1)
+          ]
         ]
-      ],
-      category: [
-        '',
-        [
-            Validators.required,
-            Validators.minLength(8)
-        ]
-      ]      
-    });
-  
-    constructor(private fb: FormBuilder) {}
-  
-    get email() {
-      return this.form.controls['email'];
-    }
-  
-    get password() {
-      return this.form.controls['password'];
+      });
     }
 
     get title() {
         return this.form.controls['title'];
     }
-    
+    get categoryId() {
+      return this.form.controls['categoryId'];
+    }
     get content() {
-    return this.form.controls['content'];
+      return this.form.controls['content'];
     }
 
-    get category() {
-        return this.form.controls['content'];
-    }
-
-
-    
+  ngOnInit() {
+    this.loadCategories();
+    this.form.valueChanges.subscribe(values => {
+      console.log("Form Values:", values);
+    });
   }
-  
+
+  loadCategories() {
+    this.http.get<any[]>(this.url + '/categories').subscribe(
+      data => {
+        this.categories = data;
+        this.form.patchValue({ categoryId: this.categories.length > 0 ? this.categories[0].id : '' });
+      },
+      error => {
+        console.error('Could not load categories', error);
+      }
+    );
+  }
+
+  onSubmit() {
+    console.log("Form Validity: ", this.form.valid);
+    console.log("Title Control State: ", this.form.get('title'));
+    console.log("Category Control State: ", this.form.get('categoryId'));
+    console.log("Content Control State: ", this.form.get('content'));
+    console.log("this.categories" + this.categories);
+
+    if (this.form.valid) {
+      this.http.post(this.url +'/posts', this.form.value
+
+      ).subscribe(
+        response => {
+          console.log('Post successful', response);
+          // Actions à effectuer après une soumission réussie
+          //Animation de validation pq pas
+        },
+        error => {
+          console.error('Error during post', error);
+          // Actions à effectuer en cas d'erreur
+        }
+      );
+    }
+  }
+}

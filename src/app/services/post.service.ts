@@ -8,9 +8,9 @@ import { PostCreateInput } from "../data/post-create-input";
 
 @Injectable()
 export class PostService {
-    
-    private postUrl = `${env.apiUrl}/v1/posts` // `http://localhost:8080/v1/categories`
-    
+
+    private postUrl = `${env.apiUrl}/v1/posts` // `http://localhost:8080/v1/posts`
+
     constructor(private http:HttpClient) {}
 
     // ICI A ENLEVER NORMALEMENT

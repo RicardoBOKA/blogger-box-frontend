@@ -7,12 +7,13 @@
             <input
               type="text"
               class="form-control"
-              id="floatingInput"
+              id="titleField"
+              formControlName="title"
               autocomplete="off"
               [class.is-invalid]="title.invalid && title.touched"
               [class.is-valid]="title.valid && title.touched"
             />
-            <label for="floatingInput">Title</label>
+            <label for="titleField">Title</label>
             <div
               *ngIf="title.invalid && title.touched"
               class="invalid-feedback text-danger"
@@ -22,48 +23,60 @@
             </div>
         </div>
 
-        <div class="form-floating my-3">
-            <input 
-              type="text" 
+        <!-- <div class="form-floating my-3">
+            <input
+              type="text"
               class="form-control"
-              id="floatingInput"
+              id="categoryField"
               autocomplete="off"
               formControlName="category"
               [class.is-invalid]="category.invalid"
               [class.is-valid]="category.valid"
             />
-            <label for="floatingInput">Category</label>
+            <label for="categoryField">Category</label>
             <div
               *ngIf="category.invalid && category.touched"
               class="invalid-feedback text-danger"
             >
               <div *ngIf="category.errors?.['required']">A category is required</div>
-              <div *ngIf="category.errors?.['content']">Please fill a valid email</div>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-floating my-3">
-            <input 
-              type="text" 
-              class="form-control"
-              id="floatingInput"
-              autocomplete="off"
-            />
-            <label for="floatingInput">Content</label>
+          <select class="form-control" id="categoryField" formControlName="categoryId">
+            <option *ngFor="let category of categories" [value]="category.uuid">{{ category.name }}</option>
+          </select>
+          <label for="categoryField">Category</label>
+          <div
+            *ngIf="categoryId.invalid && categoryId.touched"
+            class="invalid-feedback text-danger"
+          >
+            <div *ngIf="categoryId.errors?.['required']">A category is required</div>
+          </div>
+        </div>
+
+
+        <div class="form-group my-4">
+            <label for="contentField">Content</label>
+            <textarea class="form-control" id="contentField" rows="4" formControlName="content"></textarea>
             <div
-              *ngIf="title.invalid && title.touched"
+              *ngIf="content.invalid && content.touched"
               class="invalid-feedback text-danger"
             >
-              <div *ngIf="title.errors?.['required']">Email is required</div>
-              <div *ngIf="title.errors?.['content']">Please fill a valid email</div>
+              <div *ngIf="content.errors?.['required']">Dont let your post empty</div>
             </div>
         </div>
 
-        <div class="form-group my-3">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
 
+        <!--[disabled]="!form.valid"-->
+        <button
+          [disabled]="!form.valid"
+          class="btn btn-primary w-100"
+          type="button"
+          (click)="onSubmit()"
+        >
+          Post
+        </button>
         <!-- <div class="form-group">
             <label for="exampleFormControlTextarea1">Example textarea</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -100,7 +113,7 @@
             [class.is-valid]="password.valid && password.touched"
           />
           <label for="floatingPassword"> Password</label>
-  
+
           <div
             *ngIf="password.invalid && password.touched"
             class="invalid-feedback text-danger"
@@ -122,14 +135,6 @@
         </div>
 
    -->
-        <button
-          [disabled]="!form.valid"
-          class="btn btn-primary w-100"
-          type="button"
-        >
-          Post
-        </button>
       </form>
     </main>
   </div>
-  
