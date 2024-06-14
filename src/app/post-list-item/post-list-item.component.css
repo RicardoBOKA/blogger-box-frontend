@@ -1,0 +1,51 @@
+/* Espace entre la navbar et les posts */
+:host {
+  display: block;
+  padding-top: 70px; /* Ajustez en fonction de la hauteur de votre navbar */
+  margin-bottom: 20px;
+}
+
+/* Style du conteneur de post */
+.post-container {
+  padding: 20px;
+  margin: 2px auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+/* Titre du post */
+.post-title {
+  color: #333;
+  font-size: 24px;
+}
+
+/* Contenu du post */
+.post-content {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Métadonnées du post (catégorie et date) */
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #999;
+}
+
+/* Style pour la catégorie */
+.post-category {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+/* Style pour la date */
+.post-date {
+  font-style: italic;
+}
+
+

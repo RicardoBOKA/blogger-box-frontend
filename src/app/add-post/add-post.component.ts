@@ -4,11 +4,14 @@ import { PostService } from "../services/post.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {env} from "../../env/env";
+import { ToastrService } from 'ngx-toastr';
+import {Router} from "@angular/router";
+
 
 @Component({
     selector: 'add-post',
     templateUrl: './add-post.component.html',
-    styleUrls: ['./add-post.component.CSS']
+    styleUrls: ['./add-post.component.css']
 })
 
 export class AddPost implements OnInit {
@@ -16,7 +19,11 @@ export class AddPost implements OnInit {
   form: FormGroup;
   categories: any[] = [];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService ) {
       this.form = this.fb.group({
         title: [
           '',
@@ -73,24 +80,18 @@ export class AddPost implements OnInit {
   }
 
   onSubmit() {
-    console.log("Form Validity: ", this.form.valid);
-    console.log("Title Control State: ", this.form.get('title'));
-    console.log("Category Control State: ", this.form.get('categoryId'));
-    console.log("Content Control State: ", this.form.get('content'));
-    console.log("this.categories" + this.categories);
-
     if (this.form.valid) {
-      this.http.post(this.url +'/posts', this.form.value
-
-      ).subscribe(
+      this.http.post(this.url + '/posts', this.form.value).subscribe(
         response => {
           console.log('Post successful', response);
-          // Actions à effectuer après une soumission réussie
-          //Animation de validation pq pas
+          // Notification de succès
+          this.toastr.success('Post created successfully!', 'Success');
+          // Redirection vers la page d'accueil
+          this.router.navigate(['/']);
         },
         error => {
           console.error('Error during post', error);
-          // Actions à effectuer en cas d'erreur
+          this.toastr.error('Failed to create post.', 'Error'); // seulement si vous utilisez ngx-toastr
         }
       );
     }

@@ -16,40 +16,27 @@
             <label for="titleField">Title</label>
             <div
               *ngIf="title.invalid && title.touched"
-              class="invalid-feedback text-danger"
+              class="text-danger"
             >
               <div *ngIf="title.errors?.['required']">Title is required</div>
               <div *ngIf="title.errors?.['title']">Please fill a good title</div>
             </div>
         </div>
 
-        <!-- <div class="form-floating my-3">
-            <input
-              type="text"
-              class="form-control"
-              id="categoryField"
-              autocomplete="off"
-              formControlName="category"
-              [class.is-invalid]="category.invalid"
-              [class.is-valid]="category.valid"
-            />
-            <label for="categoryField">Category</label>
-            <div
-              *ngIf="category.invalid && category.touched"
-              class="invalid-feedback text-danger"
-            >
-              <div *ngIf="category.errors?.['required']">A category is required</div>
-            </div>
-        </div> -->
-
         <div class="form-floating my-3">
-          <select class="form-control" id="categoryField" formControlName="categoryId">
+          <select
+            class="form-control" id="categoryField"
+            formControlName="categoryId"
+            [class.is-invalid]="categoryId.invalid && categoryId.touched"
+            [class.is-valid]="categoryId.valid && categoryId.touched"
+
+          >
             <option *ngFor="let category of categories" [value]="category.uuid">{{ category.name }}</option>
           </select>
           <label for="categoryField">Category</label>
           <div
             *ngIf="categoryId.invalid && categoryId.touched"
-            class="invalid-feedback text-danger"
+            class="text-danger"
           >
             <div *ngIf="categoryId.errors?.['required']">A category is required</div>
           </div>
@@ -58,10 +45,16 @@
 
         <div class="form-group my-4">
             <label for="contentField">Content</label>
-            <textarea class="form-control" id="contentField" rows="4" formControlName="content"></textarea>
+            <textarea
+              class="form-control" id="contentField"
+              rows="4"
+              formControlName="content"
+              [class.is-invalid]="content.invalid && content.touched"
+              [class.is-valid]="content.valid && content.touched"
+            ></textarea>
             <div
               *ngIf="content.invalid && content.touched"
-              class="invalid-feedback text-danger"
+              class="text-danger"
             >
               <div *ngIf="content.errors?.['required']">Dont let your post empty</div>
             </div>
@@ -77,64 +70,6 @@
         >
           Post
         </button>
-        <!-- <div class="form-group">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div> -->
-
-        <!-- <div class="form-floating">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            autocomplete="off"
-            placeholder="name@example.com"
-            formControlName="email"
-            [class.is-invalid]="email.invalid && email.touched"
-            [class.is-valid]="email.valid && email.touched"
-          />
-          <label for="floatingInput">Email address</label>
-          <div
-            *ngIf="email.invalid && email.touched"
-            class="invalid-feedback text-danger"
-          >
-            <div *ngIf="email.errors?.['required']">Email is required</div>
-            <div *ngIf="email.errors?.['email']">Please fill a valid email</div>
-          </div>
-        </div>
-        <div class="form-floating my-3">
-          <input
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-            formControlName="password"
-            [class.is-invalid]="password.invalid && password.touched"
-            [class.is-valid]="password.valid && password.touched"
-          />
-          <label for="floatingPassword"> Password</label>
-
-          <div
-            *ngIf="password.invalid && password.touched"
-            class="invalid-feedback text-danger"
-          >
-            <div *ngIf="password.errors?.['required']">Password is required</div>
-            <div *ngIf="password.errors?.['missingUpperCase']">
-              Password should contain at least 1 upper case letter
-            </div>
-            <div *ngIf="password.errors?.['missingLowerCase']">
-              Password should contain at least 1 lower case letter
-            </div>
-            <div *ngIf="password.errors?.['missingNumeric']">
-              Password should contain at least 1 number
-            </div>
-            <div *ngIf="password.errors?.['minlength']">
-              Password should be 8 characters or more
-            </div>
-          </div>
-        </div>
-
-   -->
       </form>
     </main>
   </div>

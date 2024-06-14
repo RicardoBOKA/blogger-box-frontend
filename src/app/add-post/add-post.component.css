@@ -1,0 +1,31 @@
+.container {
+  max-width: 1200px; /* Limite la largeur du formulaire pour une meilleure lisibilité */
+  margin-top: 100px; /* Espacement par rapport à la barre de navigation ou autres éléments */
+
+}
+
+.form-control {
+  border-radius: 0.25rem; /* Bordures arrondies pour les champs de saisie */
+}
+
+.is-invalid {
+  border-color: #dc3545; /* Bordure rouge pour les erreurs */
+}
+
+.is-valid {
+  border-color: #28a745; /* Bordure verte pour les champs validés */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.form-floating {
+  margin-bottom: 10px; /* Espacement entre les champs */
+}

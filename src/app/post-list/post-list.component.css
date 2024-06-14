@@ -1,0 +1,29 @@
+/* post-list.component.css */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.large {
+  grid-column: span 2;
+}
+
+.tall {
+  grid-row: span 2;
+}
+
+.wide {
+  grid-column: span 2;
+  min-height: 200px;  // Pour assurer que les posts 'wide' aient une hauteur minimale
+}
+
+.normal {
+  grid-column: span 1;
+}
+
+h1 {
+  padding-top: 100px;
+  padding-bottom: 20px;
+}
